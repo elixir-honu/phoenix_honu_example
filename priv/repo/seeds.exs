@@ -10,8 +10,8 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-
-{:ok, _user} = PhoenixHonuExample.Accounts.create_user_with_attachments(%{
-  "username" => "user123",
-  "avatar" => %{"file" => "priv/static/images/phoenix.png"}
-})
+{:ok, _user} =
+  PhoenixHonuExample.Accounts.create_user_with_attachments(%{
+    "username" => "user123",
+    "avatar" => %{"file" => "priv/static/images/phoenix.png"}
+  })

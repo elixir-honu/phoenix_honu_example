@@ -14,6 +14,7 @@ defmodule PhoenixHonuExampleWeb.BookController do
       %PhoenixHonuExample.Attachments.BookAttachment{},
       %PhoenixHonuExample.Attachments.BookAttachment{}
     ]
+
     changeset = Library.change_book(%Book{pages: pages})
     render(conn, "new.html", changeset: changeset)
   end

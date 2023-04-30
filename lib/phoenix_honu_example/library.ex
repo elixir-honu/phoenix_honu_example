@@ -64,7 +64,9 @@ defmodule PhoenixHonuExample.Library do
 
   def create_book_with_attachments(attrs \\ %{}) do
     case Attachments.attachments_names(attrs, Book.attachments()) do
-      [] -> create_book(attrs)
+      [] ->
+        create_book(attrs)
+
       attn ->
         Attachments.create_record_with_attachment(
           {%Book{}, &Book.changeset_with_attachments/2},
@@ -72,10 +74,10 @@ defmodule PhoenixHonuExample.Library do
           attn
         )
         |> Repo.transaction()
-      |> case do
-        {:ok, %{record: book}} -> {:ok, book}
-        {:error, :record, %Ecto.Changeset{} = changeset, _} -> {:error, changeset}
-      end
+        |> case do
+          {:ok, %{record: book}} -> {:ok, book}
+          {:error, :record, %Ecto.Changeset{} = changeset, _} -> {:error, changeset}
+        end
     end
   end
 
@@ -99,18 +101,20 @@ defmodule PhoenixHonuExample.Library do
 
   def update_book_with_attachments(%Book{} = book, attrs) do
     case Honu.Attachments.attachments_names(attrs, Book.attachments()) do
-      [] -> update_book(book, attrs)
+      [] ->
+        update_book(book, attrs)
+
       attn ->
         Honu.Attachments.update_record_with_attachment(
-        {book, &Book.changeset_with_attachments/2},
-        attrs,
-        attn
-      )
-      |> Repo.transaction()
-      |> case do
-        {:ok, %{record: book}} -> {:ok, book}
-        {:error, :record, %Ecto.Changeset{} = changeset, _} -> {:error, changeset}
-      end
+          {book, &Book.changeset_with_attachments/2},
+          attrs,
+          attn
+        )
+        |> Repo.transaction()
+        |> case do
+          {:ok, %{record: book}} -> {:ok, book}
+          {:error, :record, %Ecto.Changeset{} = changeset, _} -> {:error, changeset}
+        end
     end
   end
 
