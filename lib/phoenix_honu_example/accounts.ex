@@ -41,6 +41,7 @@ defmodule PhoenixHonuExample.Accounts do
   def get_user_with_avatar!(id) do
     User
     |> preload(avatar: :blob)
+    |> preload(documents: :blob)
     |> Repo.get!(id)
   end
 
@@ -85,7 +86,7 @@ defmodule PhoenixHonuExample.Accounts do
         )
         |> Repo.transaction()
       |> case do
-        {:ok, %{record: product}} -> {:ok, product}
+        {:ok, %{record: user}} -> {:ok, user}
         {:error, :record, %Ecto.Changeset{} = changeset, _} -> {:error, changeset}
       end
     end
@@ -107,6 +108,23 @@ defmodule PhoenixHonuExample.Accounts do
     user
     |> User.changeset(attrs)
     |> Repo.update()
+  end
+
+  def update_user_with_attachments(%User{} = user, attrs) do
+    case Honu.Attachments.attachments_names(attrs, User.attachments()) do
+      [] -> update_user(user, attrs)
+      attn ->
+        Honu.Attachments.update_record_with_attachment(
+        {user, &User.changeset_with_attachments/2},
+        attrs,
+        attn
+      )
+      |> Repo.transaction()
+      |> case do
+        {:ok, %{record: user}} -> {:ok, user}
+        {:error, :record, %Ecto.Changeset{} = changeset, _} -> {:error, changeset}
+      end
+    end
   end
 
   @doc """

@@ -1,21 +1,23 @@
 defmodule PhoenixHonuExample.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+
+  use Honu.Schema
+
   alias PhoenixHonuExample.Attachments.UserAttachment
   alias Honu.Attachments.Attachment
 
   schema "users" do
     field :username, :string
 
-    has_one :avatar, UserAttachment,
-      foreign_key: :record_id,
-      where: [name: "avatar"]
+    has_one_attached :avatar, UserAttachment
+    has_many_attached :documents, UserAttachment
 
     timestamps()
   end
 
   def attachments do
-    [:avatar]
+    [:avatar, :documents]
   end
 
   @doc false
@@ -28,6 +30,12 @@ defmodule PhoenixHonuExample.Accounts.User do
   def changeset_with_attachments(user, attrs) do
     user
     |> changeset(attrs)
-    |> Attachment.attachments_changeset(attrs, [{:avatar, &UserAttachment.changeset/2}])
+    |> Attachment.attachments_changeset(
+      attrs,
+      [
+        {:avatar, &UserAttachment.changeset/2},
+        {:documents, &UserAttachment.changeset/2},
+      ]
+    )
   end
 end

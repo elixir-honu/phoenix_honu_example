@@ -9,8 +9,7 @@ defmodule PhoenixHonuExampleWeb.UserControllerTest do
     avatar: %Plug.Upload{
       path: "priv/static/images/phoenix.png",
       content_type: "image/png",
-      filename: "phoenix.png",
-
+      filename: "phoenix.png"
     }
   }
 

@@ -13,6 +13,10 @@
   <%= file_input f, :avatar %>
   <%= error_tag f, :avatar %>
 
+  <%= label f, :documents %>
+  <%= file_input f, :documents, multiple: true %>
+  <%= error_tag f, :documents %>
+
   <div>
     <%= submit "Save" %>
   </div>

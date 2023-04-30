@@ -1,0 +1,21 @@
+<h1>Show Book</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @book.title %>
+  </li>
+
+  <li>
+    <strong>Pages:</strong>
+    <%= for page <- @book.pages do %>
+      <strong>Page:</strong> <%= page.page_number %>
+      <%= img_tag(HonuWeb.StorageHelpers.blob_url(@conn, page.blob), height: "100") %>
+    <% end %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.book_path(@conn, :edit, @book) %></span> |
+<span><%= link "Back", to: Routes.book_path(@conn, :index) %></span>

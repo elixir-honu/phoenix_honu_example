@@ -11,6 +11,13 @@
     <strong>Avatar:</strong>
     <%= if @user.avatar do %>
       <%= img_tag(HonuWeb.StorageHelpers.blob_url(@conn, @user.avatar.blob), height: "100") %>
+      <%= link "Delete", to: HonuWeb.StorageHelpers.blob_url(@conn, @user.avatar.blob), method: :delete, data: [confirm: "Are you sure?"] %>
+    <% end %>
+
+    <strong>Documents:</strong>
+    <%= for document <- @user.documents do %>
+      <%= img_tag(HonuWeb.StorageHelpers.blob_url(@conn, document.blob), height: "100") %>
+      <%= link "Delete", to: HonuWeb.StorageHelpers.blob_url(@conn, document.blob), method: :delete, data: [confirm: "Are you sure?"] %>
     <% end %>
   </li>
 

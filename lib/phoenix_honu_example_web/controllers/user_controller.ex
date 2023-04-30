@@ -38,9 +38,9 @@ defmodule PhoenixHonuExampleWeb.UserController do
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Accounts.get_user!(id)
+    user = Accounts.get_user_with_avatar!(id) |> Map.put(:documents, [])
 
-    case Accounts.update_user(user, user_params) do
+    case Accounts.update_user_with_attachments(user, user_params) do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User updated successfully.")

@@ -24,6 +24,7 @@ defmodule PhoenixHonuExampleWeb.Router do
 
     get "/", PageController, :index
     resources "/users", UserController
+    resources "/books", BookController
   end
 
   # Other scopes may use custom stacks.
