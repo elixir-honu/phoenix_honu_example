@@ -33,9 +33,9 @@ defmodule PhoenixHonuExample.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.6.5"},
+      {:phoenix, "~> 1.6.16"},
       {:phoenix_ecto, "~> 4.4"},
-      {:ecto_sql, "~> 3.6"},
+      {:ecto_sql, "~> 3.10"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -49,8 +49,8 @@ defmodule PhoenixHonuExample.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:honu, "~> 0.3.0"},
-      #{:honu, path: "../honu"},
+      {:honu, "~> 0.3.1"},
+      # {:honu, path: "../honu"},
       {:aws, "~> 0.11"},
       {:hackney, "~> 1.17"}
     ]
