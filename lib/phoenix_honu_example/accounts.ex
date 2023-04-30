@@ -77,7 +77,9 @@ defmodule PhoenixHonuExample.Accounts do
   """
   def create_user_with_attachments(attrs \\ %{}) do
     case Attachments.attachments_names(attrs, User.attachments()) do
-      attn when attn == [] -> create_user(attrs)
+      attn when attn == [] ->
+        create_user(attrs)
+
       attn when attn != [] ->
         Attachments.create_record_with_attachment(
           {%User{}, &User.changeset_with_attachments/2},
@@ -85,10 +87,10 @@ defmodule PhoenixHonuExample.Accounts do
           attn
         )
         |> Repo.transaction()
-      |> case do
-        {:ok, %{record: user}} -> {:ok, user}
-        {:error, :record, %Ecto.Changeset{} = changeset, _} -> {:error, changeset}
-      end
+        |> case do
+          {:ok, %{record: user}} -> {:ok, user}
+          {:error, :record, %Ecto.Changeset{} = changeset, _} -> {:error, changeset}
+        end
     end
   end
 
@@ -112,18 +114,20 @@ defmodule PhoenixHonuExample.Accounts do
 
   def update_user_with_attachments(%User{} = user, attrs) do
     case Honu.Attachments.attachments_names(attrs, User.attachments()) do
-      [] -> update_user(user, attrs)
+      [] ->
+        update_user(user, attrs)
+
       attn ->
         Honu.Attachments.update_record_with_attachment(
-        {user, &User.changeset_with_attachments/2},
-        attrs,
-        attn
-      )
-      |> Repo.transaction()
-      |> case do
-        {:ok, %{record: user}} -> {:ok, user}
-        {:error, :record, %Ecto.Changeset{} = changeset, _} -> {:error, changeset}
-      end
+          {user, &User.changeset_with_attachments/2},
+          attrs,
+          attn
+        )
+        |> Repo.transaction()
+        |> case do
+          {:ok, %{record: user}} -> {:ok, user}
+          {:error, :record, %Ecto.Changeset{} = changeset, _} -> {:error, changeset}
+        end
     end
   end
 

@@ -36,7 +36,12 @@ defmodule PhoenixHonuExample.AccountsTest do
 
       assert {:ok, %User{} = user} = Accounts.create_user_with_attachments(valid_attrs)
       assert user.username == "some username"
-      assert user.avatar == %Ecto.Association.NotLoaded{__cardinality__: :one, __field__: :avatar, __owner__: User}
+
+      assert user.avatar == %Ecto.Association.NotLoaded{
+               __cardinality__: :one,
+               __field__: :avatar,
+               __owner__: User
+             }
     end
 
     test "create_user_with_attachments/1 with avatar creates a user" do
@@ -47,7 +52,7 @@ defmodule PhoenixHonuExample.AccountsTest do
 
       assert {:ok, %User{} = user} = Accounts.create_user_with_attachments(valid_attrs)
       assert user.username == "some username"
-      assert user.avatar.name == "avatar" 
+      assert user.avatar.name == "avatar"
     end
 
     test "create_user_with_attachments/1 with invalid data returns error changeset" do

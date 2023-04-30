@@ -34,7 +34,7 @@ defmodule PhoenixHonuExample.Accounts.User do
       attrs,
       [
         {:avatar, &UserAttachment.changeset/2},
-        {:documents, &UserAttachment.changeset/2},
+        {:documents, &UserAttachment.changeset/2}
       ]
     )
   end
